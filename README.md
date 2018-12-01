@@ -1,5 +1,5 @@
 # simple-ode
-Some simple ode implementation in Python (3.7)
+Some simple ode solving method implementations in Python (3.7)
 
 ## Available packages
 - Explicit/implicit Euler method
