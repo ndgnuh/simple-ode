@@ -14,17 +14,13 @@ def explicit(f,xk,yk,x,stepnum,epsilon=0):
   xks=[xk]
   yks=[yk]
   print("step size h = ", h)
-  print("y' =", inspect.getsource(f))
-
-  print("xk", "".ljust(5), "yk", "".ljust(25))
+  print("y' =", inspect.getsource(f), end="\n")
   for i in range(0, stepnum):
-    print(str(np.round(xk,3)).ljust(5) , " | ", str(yk).ljust(25))
     yk = yk + h * f(xk, yk)
     xk+= h
     i = i + 1
     xks.append(xk)
     yks.append(yk)
-  print(str(np.round(xk,3)).ljust(5) , " | ", str(yk).ljust(25))
   print("y(", xk,") = ", yk)
   return [np.asarray(xks),np.asarray(yks)]
 
@@ -38,19 +34,28 @@ def implicit(f,xk,yk,x,stepnum,epsilon=0):
     yks=[yk]
     h = (x-xk)/stepnum
     print("step h =", h)
-    print("xk", "".ljust(5), "yk", "".ljust(25), "eq")
+    print("y' =", inspect.getsource(f), end="\n")
     y  = Symbol("y") #y ~ y(k+1), symbolic for solving
     for i in range(0, stepnum):
       eulerEq = h * f(xk, y) + yk - y
-      print(str(np.round(xk,3)).ljust(5) , " | ", str(yk).ljust(25), "|", eulerEq)
       eulerEq = lambdify(y, eulerEq) 
       yk = newton(eulerEq, xk)
       xk = xk + h
       xks.append(xk)
       yks.append(yk)
-    print(str(np.round(xk,3)).ljust(5) , str(yk).ljust(25))
     print("y(", xk, ") = ", yk)
     return [np.asarray(xks), np.asarray(yks)]
   except RuntimeError:
     print("Unable to solve, failed to converge")
     return [np.asarray(xks), np.asarray(yks)]
+
+def explicit_syseq(f, xk, yk, x, stepnum):
+  h = (x-xk)/stepnum
+  if(h == 0):
+    print("invalid stepsize")
+    return 0
+  xks = [xk]; yks=[yk]
+  for i in range(0, stepnum):
+    yk =np.asarray(yk) + h*np.asarray(f(xk,yk))
+    xk += h; xks.append(xk); yks.append(yk)
+  return [xks, yks]
