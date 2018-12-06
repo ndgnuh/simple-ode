@@ -14,7 +14,7 @@ print("yk:", yk)
 
 
 """
-  voi phuong phap hien an dung sumpy de tao ham f
+  voi phuong phap hien an dung sympy de tao ham f
 """
 
 f = lambda x,y: sp.sin(y)
