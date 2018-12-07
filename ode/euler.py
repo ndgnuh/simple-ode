@@ -11,7 +11,7 @@ def _explicit_single(f,xk,yk,x,stepnum,epsilon=0):
   print("y(", xk,") = ", yk)
   return [xks, yks]
 
-def _explicit_syseq(f, xk, yk, x, stepnum):
+def _explicit_system(f, xk, yk, x, stepnum):
   h = (x-xk)/stepnum
   if(h == 0):
     print("invalid stepsize")
@@ -29,7 +29,7 @@ def explicit(f, xk, yk, x, stepnum):
     print("Invalid step num")
     return 0
   if((type(yk) == type([])) or (type(yk) == type(np.asarray([])))):
-    [xks, yks] = _explicit_syseq(f, xk, yk, x, stepnum)
+    [xks, yks] = _explicit_system(f, xk, yk, x, stepnum)
   else:
     [xks, yks] = _explicit_single(f, xk, yk, x, stepnum)
   return [np.asarray(xks), np.asarray(yks)]
@@ -41,13 +41,13 @@ def implicit(f,xk,yk,x,stepnum,ite=50):
     print("Invalid step num")
     return 0
   if((type(yk) == type([])) or (type(yk) == type(np.asarray([])))):
-    [xks, yks] = _implicit_syseq(f, xk, yk, x, stepnum, ite)
+    [xks, yks] = _implicit_system(f, xk, yk, x, stepnum, ite)
   else:
     [xks, yks] = _implicit_single(f, xk, yk, x, stepnum, ite)
   return [np.asarray(xks), np.asarray(yks)]
 
 
-def _implicit_syseq(f,xk,yk,x,stepnum,ite=50):
+def _implicit_system(f,xk,yk,x,stepnum,ite=50):
   xks=[xk];  yks=[yk];  
   h = (x-xk)/stepnum;
   print("step h =", h)
