@@ -11,20 +11,30 @@ def result(xk, yk, dec=6):
   _scalar_result(xk, yk, dec)
 
 def _system_result(xk, yk, dec):
+  maxlen = len(str(round(yk[0][0],dec)))
+  for yik in yk:
+    for y in yik:
+      maxlen = maxlen if maxlen > len(str(round(y,dec))) else len(str((round(y,dec))))
   cols = len(yk[0])
-  print("xk".ljust(dec+5), end="")
+  print("xk".ljust(7), end="")
   for col in range(0, cols):
-    print(("y"+ str(col) +"k").ljust(dec+5), end="", sep="")
-  print("\n"+"-"*(cols+1)*(dec+5))
+    print(("y"+ str(col) +"k").ljust(maxlen+3), end="", sep="")
+  print("\n"+"-"*(cols+1)*(maxlen+3))
   for row in range(0, len(xk)):
-    print(str(round(xk[row],dec)).ljust(dec+5), end="")
+    print(str(round(xk[row],4)).ljust(7), end="")
     for col in range(0, len(yk[0])):
-      print(str(round(yk[row][col],dec)).ljust(dec+5), end="")
+      print(str(round(yk[row][col],dec)).ljust(maxlen+3), end="")
     print("")
 
 def _scalar_result(xk, yk, dec=6):
-  print("xk".ljust(10), "yk".ljust(10))
-  print("-"*30)
+  maxlen = len(str(round(yk[0],dec)))
+  print(maxlen)
+  for y in yk:
+    maxlen = maxlen if maxlen > len(str(round(y,dec))) else len(str((round(y,dec))))
+  print("xk".ljust(7), "yk".ljust(maxlen+3))
+  print("-"*(7+(maxlen+3)))
   for i in range(0, len(xk)):
-    print(str(round(xk[i],dec)).ljust(dec+5), end="")
-    print(str(round(yk[i],dec)).ljust(dec+5))
+    print(str(round(xk[i],4)).ljust(7), end="")
+    print(str(round(yk[i],dec)).ljust(maxlen+3))
+
+  
