@@ -36,7 +36,7 @@ def explicit(f, xk, yk, x, stepnum):
 
 
 def implicit(f,xk,yk,x,stepnum,ite=50):
-  print("Explicit Euler method:")
+  print("Implicit Euler method:")
   if(stepnum == 0):
     print("Invalid step num")
     return 0
