@@ -12,6 +12,7 @@ def _explicit_single(f,xk,yk,x,stepnum,epsilon=0):
   return [xks, yks]
 
 def _explicit_system(f, xk, yk, x, stepnum):
+  print("(applying with system equations)")
   h = (x-xk)/stepnum
   if(h == 0):
     print("invalid stepsize")
