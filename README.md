@@ -8,6 +8,4 @@ Some simple ode solving method implementations in Python (3.7)
 
 ## Depencendies
 - Numpy (any)
-- Sympy (any)
-- Scipy (any)
 - Matplotlib (optional,  only for running examples)
