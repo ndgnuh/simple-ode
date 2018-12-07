@@ -35,40 +35,40 @@ def explicit(f, xk, yk, x, stepnum):
   return [np.asarray(xks), np.asarray(yks)]
 
 
-def implicit(f,xk,yk,x,stepnum,iter=50):
+def implicit(f,xk,yk,x,stepnum,ite=50):
   print("Explicit Euler method:")
   if(stepnum == 0):
     print("Invalid step num")
     return 0
   if((type(yk) == type([])) or (type(yk) == type(np.asarray([])))):
-    [xks, yks] = _implicit_syseq(f, xk, yk, x, stepnum, iter)
+    [xks, yks] = _implicit_syseq(f, xk, yk, x, stepnum, ite)
   else:
-    [xks, yks] = _implicit_single(f, xk, yk, x, stepnum, iter)
+    [xks, yks] = _implicit_single(f, xk, yk, x, stepnum, ite)
   return [np.asarray(xks), np.asarray(yks)]
 
 
-def _implicit_syseq(f,xk,yk,x,stepnum,iter=50):
+def _implicit_syseq(f,xk,yk,x,stepnum,ite=50):
   xks=[xk];  yks=[yk];  
   h = (x-xk)/stepnum;
   print("step h =", h)
   for i in range(0, stepnum):
     xk += h
     ybar = yk + h*np.asarray(f(xk, yk))
-    for j in range(0, iter):
+    for j in range(0, ite):
       ybar = yk + h*np.asarray(f(xk, ybar))
     yk = yk + h*np.asarray(f(xk, ybar))
     xks.append(xk); yks.append(yk)
   return [xks, yks]
 
 
-def _implicit_single(f,xk,yk,x,stepnum, iter=50):
+def _implicit_single(f,xk,yk,x,stepnum, ite=50):
   xks=[xk];  yks=[yk];  
   h = (x-xk)/stepnum; 
   print("step h =", h)
   for i in range(0, stepnum):
     xk += h;
     ybar = yk + h*f(xk, yk)
-    for j in range(0, iter):
+    for j in range(0, ite):
       ybar = yk + h*f(xk, ybar)
     yk = yk + h*f(xk, ybar)
     xks.append(xk); yks.append(yk)
