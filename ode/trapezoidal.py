@@ -1,6 +1,9 @@
-from sympy import Symbol, lambdify
-from scipy.optimize import newton 
+# from sympy import Symbol, lambdify
+# from scipy.optimize import newton 
 import numpy as np
+
+trapezoidal = lambda f, xk, xk1, yk, yk1, h: np.asarray(yk) + h/2*(np.asarray(f(xk1, yk1))+np.asarray(f(xk, yk)))
+"""
 
 # def trapezoidal(f, xk, yk, x, stepnum):
 #   try:
@@ -65,3 +68,4 @@ def trapezoidal(f,xk,yk,x,stepnum,ite=50):
   else:
     [xks, yks] =  _trapezoidal_single(f, xk, yk, x, stepnum, ite)
   return [np.asarray(xks), np.asarray(yks)]
+"""

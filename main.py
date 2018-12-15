@@ -1,16 +1,16 @@
 import numpy as np 
-from ode import euler, rk, trapezoidal
 from misc import rprint
+from ode import schemes, rk, euler, trapezoidal
+from inputs import *
 # from "tên thư mục" import "tên file"
 # from "tên thư mục"."tên file" import "tên hàm/biến/..."
 # import "tên" as "tên alias"
 """
   f = sin(y), y(0) = 1; tinh y(4), voi 10 buoc nhay
 """
-
-f = lambda x,y: np.sin(y)
-x0 = 0; y0 = 1; x = 4; steps=10
-[xk, yk] = euler.explicit(f, x0, y0, x, steps)
+x = 2
+stepnum = 8
+[xk, yk] = schemes.implicit(f, x0, y0, x, stepnum, trapezoidal.trapezoidal)
 rprint.result(xk, yk)
 
 """
@@ -26,8 +26,8 @@ f = lambda x, y: [
   -y[1]-y[0]
 ]
 y0 = [1, 2]
-x0 = 0; x = 10; stepnum = 40;
-[xk, yk] = trapezoidal.trapezoidal(f, x0, y0, x, stepnum)
+x0 = 0; x = 2.5; stepnum = 5;
+[xk, yk] = schemes.implicit(f, x0, y0, x, stepnum, trapezoidal.trapezoidal, rk.erk3)
 rprint.result(xk, yk)
 
 y = lambda x: np.exp(-x/2)/3*(5*np.sqrt(3)*np.sin(x*np.sqrt(3)/2)+3*np.cos(np.sqrt(3)*x/2))
