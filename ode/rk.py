@@ -1,5 +1,21 @@
 import numpy as np
 
+def erk4(f, xk, yk, h):
+  k1 = np.asarray(f(xk, yk))
+  k2 = np.asarray(f(xk+h/2, yk+h*k1/2))
+  k3 = np.asarray(f(xk+h/2, yk+h*k2/2))
+  k4 = np.asarray(f(xk+h, yk+h*k3))
+  return np.asarray(yk) + h*(k1+2*k2+2*k3+k4)/6
+
+def erk3(f, xk, yk, h):
+  k1 = np.asarray(f(xk, yk))
+  k2 = np.asarray(f(xk+h/2, yk+h*k1/2))
+  k3 = np.asarray(f(xk+1, yk-h*k1+2*h*k2))
+  return np.asarray(yk) + h*(k1/6+2*k2/3+k3/6)
+  
+def trapezoidal(f, xk, yk, h):
+  k2 = np.asarray(f(xk[-1]))
+"""  
 def rk4(f, xk, yk, x, stepnum):
   h = (x - xk)/stepnum
   yks = [yk]
@@ -70,3 +86,4 @@ def fehlberg(f, xk, yk, x, stepnum):
     yks.append(yk)
     print(str(np.round(xk,3)).ljust(5) , " | ", str(yk).ljust(25))
   return [np.asarray(xks), np.asarray(yks)]
+"""
