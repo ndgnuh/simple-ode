@@ -6,7 +6,7 @@ def explicit(f, xk, yk, x, stepnum, exf):
   """
   h = (x-xk)/stepnum
   yks = np.array([yk])
-  xks = np.array([[xk]])
+  xks = np.array([xk])
   for i in range(0, stepnum):
     yk = exf(f, xk, yk, h)
     xk = xk + h
@@ -17,15 +17,13 @@ def explicit(f, xk, yk, x, stepnum, exf):
 def implicit(f, xk, yk, x, stepnum, imf, exf = erk4, correct_time = 50):
   h = (x-xk)/stepnum
   yks = np.array([yk])
-  xks = np.array([[xk]])
+  xks = np.array([xk])
   for i in range(0, stepnum):
-    ykj = exf(f, xk, yk, h)
-    xk1 = xk + h
-    for j in range(0, correct_time):
-      ykj = imf(f, xk, xk1, yk, ykj, h)
-    xk = xk1
-    yk = ykj
+    yk = exf(f, xk, yk, h)
+    xk = xk + h
     yks = np.append(yks, [yk], axis=0)
     xks = np.append(xks, xk)
+    for j in range(0, correct_time):
+      yks[-1] = imf(f, xks, yks, h)
+  print(yks)
   return [xks, yks]
-  return 0

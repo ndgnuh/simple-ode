@@ -2,7 +2,7 @@
 # from scipy.optimize import newton 
 import numpy as np
 
-trapezoidal = lambda f, xk, xk1, yk, yk1, h: np.asarray(yk) + h/2*(np.asarray(f(xk1, yk1))+np.asarray(f(xk, yk)))
+trapezoidal = lambda f, xk, yk, h: np.asarray(yk[-2]) + h/2*(np.asarray(f(xk[-1], yk[-1]))+np.asarray(f(xk[-2], yk[-2])))
 """
 
 # def trapezoidal(f, xk, yk, x, stepnum):
