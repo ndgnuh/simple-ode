@@ -1,6 +1,9 @@
 import numpy as np
 import sympy as sp
 from helper import *
+import sys
+sys.path.append("/home/hung/Projects/simple-ode")
+from misc import rprint
 import pprint
 
 s = int(input("s = "))
@@ -12,46 +15,54 @@ def gen_dfi(s):
   nfact = 1
   for i in range(1, s):
     nfact *= i
-    # pfi = t(t-1)(t-2)...(t-s)
-    ipfi = np.polyint(pfi)
+    ipfi = np.polyint(pfi) # pfi = t(t-1)(t-2)...(t-s),
     delta_fi = np.append(delta_fi, (np.polyval(ipfi, s) - np.polyval(ipfi, s-1))/nfact)
     pfi = np.append(pfi, zero_vec) - i*np.append(zero_vec, pfi)
-  return [pfi, delta_fi]
+  return delta_fi
 
-[p, dfi] = gen_dfi(s)
+def ab_t(a, f, xks, yks):
+  s = len(a)
+  yks = yks.T[-s:]; xks = xks[-s:]
+  yk = yks[-1]
+  sum = 0
+  
+  return yk
+
+def ab_builder(s):
+  dfi = gen_dfi(s)
+  fact_arr = gen_factarr(s)
+  mat = gen_comb_matrix(s, fact_arr)
+  ficoef = dfi.T.dot(mat)
+  print("ficoef of s =", s, ":", ficoef)
+  def adam(f, xks, yks, h):
+    xks = xks[-s:]; yks = yks[-s:]
+    dy = 0; yk = yks[-1]
+    for i in range(0, len(ficoef)):
+      dy = dy + ficoef[i]*f(xks[i], yks[i])
+    return yk + h*dy
+  return adam
+
+def adam_bashforth(f, xk, yk, x, stepnum, s = 4):
+  h = (x-xk)/stepnum
+  xks = [xk]
+  yks = [yk]
+  for i in range(0, s):
+    ab_formula = ab_builder(i+1)
+    yk = ab_formula(f, xks, yks, h)
+    xk = xk + h
+    xks.append(xk); yks.append(yk)
+  for i in range(s, stepnum):
+    yk = ab_formula(f, xks, yks, h)
+    xk = xk + h
+    xks.append(xk); yks.append(yk)
+  return [xks, yks]
 
 
+f = lambda x,y: 1-y
+[x, y] = adam_bashforth(f, 0, 0,3,9, s)
+rprint.result(x,y,12)
 
-fact_arr = gen_factarr(s)
-mat = gen_comb_matrix(s, fact_arr)
-ficoef = dfi.T.dot(mat)
-
-print("Công thức AB-", s, ". Các hệ số của fi (i từ 0 tới ", s-1,"):", sep="")
-print(ficoef)
-
-
-f = lambda x, y: y
-x0 = 0; y0 = 1
-tks = [y0]
-fis = [f(x0, y0)]
-yk = y0
-xk = x0
-stepnum = 20; x = 4
-h = (x - xk)/stepnum 
-for i in range(1, stepnum):
-  yks = np.array([yk])
-  xks = np.array([xk])
-  if(i < s):
-    [p, dfi] = gen_dfi(i)
-    fact_arr = gen_factarr(i)
-    mat = gen_comb_matrix(i, fact_arr)
-    ficoef = dfi.T.dot(mat)
-  # if(i > s):
-  yk = yk + h*ficoef.T.dot(fis)
-  xk = xk + h
-  fis = np.append(fis, f(xk, yk))[-(s-1):]
-  yks = np.append(yks, [yk])
-  xks = np.append(xks, xk)
-
-print(xks, yks)
-print(ficoef)
+f = lambda x,y: np.asarray([1-y[0],1-y[1]])
+[x, y1] = adam_bashforth(f, 0,np.asarray([0, 0]),3,9, s)
+rprint.result(x,y1,12)
+print(x, y1[:,0] - y)

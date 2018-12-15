@@ -11,7 +11,7 @@ def fast_comb(k, n, fact_arr):
 
 def gen_comb_matrix(s, fact_arr):
   mat = np.array([[0]*s]*s)
-  for i in range(0, s):
+  for i in range(0,s):
     sgn = 1 if (i % 2 == 0) else -1
     for j in range(0,i+1):
       mat[i][j] = sgn*fast_comb(j, i, fact_arr)
