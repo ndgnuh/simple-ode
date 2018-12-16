@@ -6,8 +6,8 @@ from inputs import *
 # from "tên thư mục"."tên file" import "tên hàm/biến/..."
 # import "tên" as "tên alias"
 x = 2
-stepnum = 8
-[xk, yk] = schemes.implicit(f, x0, y0, x, stepnum, trapezoidal.trapezoidal)
+stepnum = 4
+[xk, yk] = schemes.implicit(f, x0, y0, x, stepnum, euler.im_euler, rk.erk4, 40)
 rprint.result(xk, yk, 12)
 
 
