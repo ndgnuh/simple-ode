@@ -1,8 +1,12 @@
 import numpy as np
 
 ex_euler = lambda f, xk, yk, h: yk + h*np.asarray(f(xk, yk))
-im_euler = lambda f, xk, yk, h: np.asarray(yk[-2]) + h*np.asarray(f(xk[-1], yk[-1]))
-
+def im_euler(f, xk, yk, h, exf, iters):
+  ykj = exf(f, xk, yk, h)
+  xknext = xk + h
+  for j in range(0, iters):
+    ykj = np.asarray(yk) + h*np.asarray(f(xknext, ykj))
+  return ykj
 """
 def _explicit_single(f,xk,yk,x,stepnum,epsilon=0):
   xks=[xk];  yks=[yk]; h = (x - xk)/stepnum

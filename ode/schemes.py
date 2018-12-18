@@ -15,15 +15,15 @@ def explicit(f, xk, yk, x, stepnum, exf):
   return [xks, yks]
 
 def implicit(f, xk, yk, x, stepnum, imf, exf = erk4, correct_time = 50):
+  """
+  Dùng phương pháp ẩn để giải (dự đooán hiệu chỉnh)
+  """
   h = (x-xk)/stepnum
   yks = np.array([yk])
   xks = np.array([xk])
   for i in range(0, stepnum):
-    yk = exf(f, xk, yk, h)
+    yk = imf(f, xk, yk, h, exf, correct_time)
     xk = xk + h
     yks = np.append(yks, [yk], axis=0)
     xks = np.append(xks, xk)
-    for j in range(0, correct_time):
-      yks[-1] = imf(f, xks, yks, h)
-  print(yks)
   return [xks, yks]
