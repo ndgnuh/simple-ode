@@ -13,8 +13,16 @@ def erk3(f, xk, yk, h):
   k3 = np.asarray(f(xk+1, yk-h*k1+2*h*k2))
   return np.asarray(yk) + h*(k1/6+2*k2/3+k3/6)
   
-def trapezoidal(f, xk, yk, h):
-  k2 = np.asarray(f(xk[-1]))
+def irk3(f, xk, yk, h, exf, iters):
+  ykj_half = exf(f, xk, yk, h/2)
+  xkj_half = xk + h/2
+  for i in range(0, iters):
+    ykj_half = np.asarray(yk) + h*np.asarray(f(xkj_half, ykj_half))/2
+  ykj = exf(f, xk, yk, h)
+  xkj = xk + h
+  for i in range(0, iters):
+    ykj = np.asarray(yk) + h*(np.asarray(f(xkj, ykj)) + np.asarray(f(xk,yk)) + 4*np.asarray(f(xkj_half, ykj_half)))/6
+  return ykj
 """  
 def rk4(f, xk, yk, x, stepnum):
   h = (x - xk)/stepnum
