@@ -21,7 +21,7 @@ def irk3(f, xk, yk, h, exf, iters):
   ykj = exf(f, xk, yk, h)
   xkj = xk + h
   for i in range(0, iters):
-    ykj = yk + h*(np.asarray(f(xkj, ykj)) + np.asarray(f(xk,yk)) + 4*np.asarray(f(xkj_half, ykj_half)))/6
+    ykj = np.asarray(yk) + h*(np.asarray(f(xkj, ykj)) + np.asarray(f(xk,yk)) + 4*np.asarray(f(xkj_half, ykj_half)))/6
   return ykj
 """  
 def rk4(f, xk, yk, x, stepnum):

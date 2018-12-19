@@ -7,5 +7,6 @@ def ex_eval(f, x0, y0, x, stepnum, exf, div=4):
   dy = np.array([])
   for i in range(0, div):
     [xk, yk] = schemes.explicit(f, x0, y0, x, stepnum, exf)
-    cur_stepnum /= 2
+    cur_stepnum = cur_stepnum / 2
     x.append(xk); y.append(yk)
+  print(y)

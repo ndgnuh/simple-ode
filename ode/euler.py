@@ -1,6 +1,8 @@
 import numpy as np
 
-ex_euler = lambda f, xk, yk, h: yk + h*np.asarray(f(xk, yk))
+def ex_euler(f, xk, yk, h):
+  return np.asarray(yk) + h*np.asarray(f(xk, yk))
+
 def im_euler(f, xk, yk, h, exf, iters):
   ykj = exf(f, xk, yk, h)
   xknext = xk + h

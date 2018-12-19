@@ -6,7 +6,7 @@ from inputs import *
 # from "tên thư mục"."tên file" import "tên hàm/biến/..."
 # import "tên" as "tên alias"
 
-[xk, yk] = schemes.implicit(f, x0, y0, x, stepnum, rk.irk3, rk.erk3)
+[xk, yk] = schemes.implicit(f, x0, y0, x, stepnum, rk.irk3, euler.ex_euler)
 rprint.result(xk, yk, 12)
 
 # error_eval.eval(f, x0, y0, x, 2*stepnum)
