@@ -8,7 +8,7 @@ from helper import fast_comb
 def gen_comb_matrix(s, fact_arr):
   mat = np.array([[0]*s]*s)
   for i in range(0,s):
-    sgn = 1 
+    sgn = 1 if (i % 2 == 0) else -1
     for j in range(0,i+1):
       mat[i][j] = sgn*fast_comb(j, i, fact_arr)
       sgn=-sgn
@@ -49,7 +49,7 @@ def ab_builder(s):
   for i in range(1, s):
     fact_arr.append(fact_arr[i-1] * i)
     int_dfi_coef_1 = np.polyint(dfi_coef_1)
-    dfi_coef_2.append((np.polyval(int_dfi_coef_1, 1) - np.polyval(int_dfi_coef_1, 0))/fact_arr[i-1])
+    dfi_coef_2.append((np.polyval(int_dfi_coef_1, s) - np.polyval(int_dfi_coef_1, s-1))/fact_arr[i-1])
     dfi_coef_1 = np.polymul(dfi_coef_1, [1, i])
   dfi_coef_2 = np.asarray(dfi_coef_2)
   mat = gen_comb_matrix(s, fact_arr)
@@ -64,5 +64,7 @@ def ab_builder(s):
     return yk + h*dy
   return adam
 
-for i in range(0, 4):
+s = int(input("s = "))
+
+for i in range(0, s):
   ab_builder(i+1)
