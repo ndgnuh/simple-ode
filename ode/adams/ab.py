@@ -71,7 +71,7 @@ def adam_bashforth(f, xk, yk, x, stepnum, s = 4):
   return [np.asarray(xks), np.asarray(yks)]
 
 
-"""
+
 s = int(input("s = "))
 f = lambda x,y: 1-y
 [x, y] = adam_bashforth(f, 0, 0,3,9, s)
@@ -80,4 +80,4 @@ rprint.result(x,y,12)
 f = lambda x,y: np.asarray([1-y[0],1-y[1]])
 [x, y1] = adam_bashforth(f, 0,np.asarray([0, 0]),3,9, s)
 rprint.result(x,y1,12)
-print("error", y1[:,1] - y)"""
+print("error", y1[:,1] - y)
