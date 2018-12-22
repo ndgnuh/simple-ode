@@ -3,7 +3,7 @@ Các gói giải phương trình IVP và BVP (chủ yếu là IVP)
 
 ## Những gói chính
 - Các phương pháp RK:
-- Euler ($\text{hiện, ẩn}$)
+- Euler (hiện, ẩn)
 - Hình thang
 - RK3, RK4 (hiện)
 - Các phương pháp Adams - Bashforth (với s bất kì)
