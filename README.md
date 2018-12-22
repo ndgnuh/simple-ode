@@ -14,6 +14,7 @@ Các gói giải phương trình IVP và BVP (chủ yếu là IVP)
 - Matplotlib (chỉ dùng cho việc vẽ đồ thị, nếu chỉ tính toán thì không cần)
 
 ## Cách sử dụng:
+Xem hướng dẫn chi tiết trong [wiki](https://github.com/ndgnuh99/simple-ode/wiki)
 ### Chạy bằng menu (chưa khả dụng)
 - Khai báo đầu vào trong hàm `inputs.py`. Bắt buộc phải có hàm `f`, điểm ban đầu `x0`, giá trị ban đầu `y0`. Sau đó chạy chương trình.
 ### Chạy chay bằng file `main.py`
