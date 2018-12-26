@@ -1,7 +1,7 @@
 import numpy as np 
-# import ab as bashforth
 import sys
 sys.path.append("/home/hung/Projects/simple-ode")
+from scipy.linalg import pascal
 from misc import rprint
 from helper import fast_comb
 
@@ -41,33 +41,38 @@ def gen_comb_matrix(s, fact_arr):
 # f = lambda x,y: 1-y
 # [x, y] = adams_moulton(f, 0, 0,3,9, s)
 # rprint.result(x,y,12)
+def gen_ai(s):
+  dp = np.array([1])
+  a = [1]
+  for i in range(1, s):
+    dp = np.polymul(dp, [1, i-2])/i
+    a.append(np.polyval(np.polyint(dp), 1) - np.polyval(np.polyint(dp),0))
+  return a
 
+def pascal_triangle(s):
+  pc = np.array(pascal(s, kind='lower', exact= False))
+  for i in range(0, s):
+    if i % 2 != 0:
+      pc [:,i] =- pc[:,i]
+  return pc
 
 def ab_builder(s):
-  dfi_coef_1 = np.array([1, 0])
-  dfi_coef_2 = [1]; fact_arr = [1]
-  sgn = -1
-  for i in range(1, s):
-    fact_arr.append(fact_arr[i-1] * i)
-    int_dfi_coef_1 = np.polyint(dfi_coef_1)
-    dfi_coef_2.append(sgn*(np.polyval(int_dfi_coef_1, 1) - np.polyval(int_dfi_coef_1, 0))/fact_arr[i-1])
-    dfi_coef_1 = np.polymul(dfi_coef_1, [1, i])
-    sgn = -sgn
-  dfi_coef_2 = np.asarray(dfi_coef_2)
-  mat = gen_comb_matrix(s, fact_arr)
-  for i in range(0, s):
-    mat[i] = np.flip(mat[i])
-  ficoef = dfi_coef_2.T.dot(mat)
-  print("ficoef of s =", s, ":", ficoef)
+  a = gen_ai(s)
+  pc = pascal_triangle(s)
+  p = np.array(a).dot(pc)
   def adam(f, xks, yks, h):
     xks = xks[-s:]; yks = yks[-s:]
     dy = 0; yk = yks[-1]
-    for i in range(0, len(ficoef)):
-      dy = dy + ficoef[i]*f(xks[i], yks[i])
+    for i in range(0, len(d)):
+      dy = dy + d[i]*f(xks[i], yks[i])
     return yk + h*dy
   return adam
 
-s = int(input("s = "))
+# ab_builder(1)
+# ab_builder(2)
+ab_builder(3)
+ab_builder(4)
 
-for i in range(0, s):
-  ab_builder(i+1)
+# ab_builder(5)
+
+# ab_builder(6)
