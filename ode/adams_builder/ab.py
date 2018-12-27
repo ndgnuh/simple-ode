@@ -20,18 +20,3 @@ def _builder(s):
     return yks[-1] + h*p.dot(f(xks, yks))
   return [adams, p] 
 
-def solve(f, xk, yk, x, stepnum, s = 4):
-  h = (x-xk)/stepnum
-  xks = [xk]
-  yks = [yk]
-  for i in range(0, s):
-    ab = _builder(s)[0]
-    yk = ab(f, xks, yks, h)
-    xk = xk + h
-    xks.append(xk); yks.append(yk)
-  for i in range(s, stepnum):
-    yk = ab(f, xks, yks, h)
-    xk = xk + h
-    xks.append(xk); yks.append(yk)
-  return [np.asarray(xks), np.asarray(yks)]
-

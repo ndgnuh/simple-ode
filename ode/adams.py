@@ -16,7 +16,6 @@ def bashforth(f, xk, yk, x, stepnum, s = 4):
     xks.append(xk); yks.append(yk)
   return [np.asarray(xks), np.asarray(yks)]
 
-
 def moulton(f, xk, yk, x, stepnum, s = 4, iterations = 50):
   h = (x-xk)/stepnum
   xks = [xk]
