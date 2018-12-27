@@ -12,7 +12,7 @@ def _builder(s, _gen_ai):
       dy = dy + p[i]*f(xks[i], yks[i])
     return yk + h*dy
   return [adams, p]
-
+ 
 def _pascal_triangle(s):
   pc = np.array(pascal(s, kind='lower', exact= False))
   for i in range(0, s):
