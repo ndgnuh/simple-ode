@@ -16,6 +16,7 @@ def bashforth(f, xk, yk, x, stepnum, s = 4):
     xks.append(xk); yks.append(yk)
   return [np.asarray(xks), np.asarray(yks)]
 
+
 def moulton(f, xk, yk, x, stepnum, s = 4, iterations = 50):
   h = (x-xk)/stepnum
   xks = [xk]
@@ -23,16 +24,15 @@ def moulton(f, xk, yk, x, stepnum, s = 4, iterations = 50):
   for i in range(0, s):
     abf = ab._builder(i+1)[0]
     amf = am._builder(i+1)[0]
-    print("s:", s, ";;; p =", am._builder(i+1)[1])
-    yk = abf(f, xks, yks, h)
-    # yk = amf(f, xks, yks, ykj, h)
-    xk = xk + h
-    xks.append(xk); yks.append(yk)
-  print("s:", s, ";;; p =", ab._builder(i)[1])
-  print("s:", s, ";;; p =", am._builder(i)[1])
-  for i in range(s, stepnum):
+    xk = xk + h; xks.append(xk)
     ykj = abf(f, xks, yks, h)
-    yk = amf(f, xks, yks, ykj, h)
-    xk = xk + h
-    yks.append(yk); xks.append(xk)
+    yks.append(ykj)
+    for j in range(0, iterations):
+      yks[-1] = amf(f, xks, yks, h)
+  for i in range(s, stepnum):
+    xk = xk + h; xks.append(xk)
+    ykj = abf(f, xks, yks, h)
+    yks.append(ykj)
+    for j in range(0, iterations):
+      yks[-1] = amf(f, xks, yks, h)
   return [np.asarray(xks), np.asarray(yks)]

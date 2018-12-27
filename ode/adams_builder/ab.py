@@ -12,13 +12,12 @@ def _gen_ai(s):
 def _builder(s):
   a = _gen_ai(s)
   pc = helper._pascal_triangle(s)
-  p = np.array(a).dot(pc)
+  p = np.flip(np.array(a).dot(pc))
+  print("p", p)
   def adams(f, xks, yks, h):
-    xks = xks[-s:]; yks = yks[-s:]
-    dy = 0; yk = yks[-1]
-    for i in range(0, s):
-      dy = dy + p[s-i-1]*f(xks[i], yks[i])
-    return yk + h*dy
+    xks = np.array(xks[-s:])
+    yks = np.array(yks[-s:])
+    return yks[-1] + h*p.dot(f(xks, yks))
   return [adams, p] 
 
 def solve(f, xk, yk, x, stepnum, s = 4):
