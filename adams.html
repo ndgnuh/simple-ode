@@ -1,17 +1,89 @@
 <html>
 <head>
-    <title>MathJax</title>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({"HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] },
-            tex2jax: { inlineMath: [ ["$", "$"], ["\\\\(","\\\\)"] ], displayMath: [ ["$$","$$"], ["\\[", "\\]"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno" },
-            TeX: { noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } } },
-            messageStyle: "none"
-        });
-    </script>    
-    <script type="text/javascript" src="js/MathJax.js"></script>       
+  <title>MathJax</title>
+  <meta charset="utf-8"/>
+  <script type="text/javascript" src="MathJax-2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML,local/local"></script>       
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      "HTML-CSS": { 
+        preferredFont: "TeX", 
+        availableFonts: ["STIX","TeX"] 
+      },
+      tex2jax: { 
+        inlineMath: [ ["$", "$"], ["\\\\(","\\\\)"] ], 
+        displayMath: [ ["$$","$$"], ["\\[", "\\]"] ], 
+        processEscapes: true, 
+        ignoreClass: "tex2jax_ignore|dno" 
+      },
+      TeX: { 
+        noUndefined: { 
+          attributes: { 
+            mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" 
+          } 
+        } 
+      },
+      messageStyle: "none"
+    });
+  </script>    
 </head>
 <body>
-    The definition of the Euler-Mascheroni constant is
-    $$\gamma=\lim_{n\to\infty}\left(\sum_{k=1}^n\frac1k\right)-\frac1n$$
+  <form class="card">
+    <p class='label'>Viết công thức thu được từ chương trình vào đây:</p>
+    <input oninput="preview()" id="formula_box" placeholder="Công thức" value="\oint \alpha \mathbb{m} i"/>
+    <div class='divider'></div>
+    <button type="button" onclick="rs()">Xóa</button>
+  </form>
+  <div class="card">
+    <p class="label">Math preview:</p>
+    <div id="preview"></div>
+  </div>
+  <script>
+    function preview(){
+      value = document.getElementById('formula_box').value 
+      document.getElementById('preview').innerHTML = "$$" + value + "$$"
+      var target = document.getElementById('preview');
+      MathJax.Hub.Queue(["Typeset",MathJax.Hub,'preview']);
+    }
+
+    function rs(){
+      document.getElementById('formula_box').value = " "
+      document.getElementById('preview').innerHTML = "Chưa có gì cả, viết công thức vào đây"
+    }
+    document.getElementById('formula_box').value
+    preview()
+  </script>
+
+  <style>
+    body { background: #dedede}
+    #formula_box {
+      background: #ffffff !important;
+      width: 100%;
+      border: 0;
+    }
+    .card {
+      padding: 1em;
+      padding-top:0.2em;
+      background: #FFFFFF;
+      width: '100%';
+      border: 0.0px solid #424242;
+      box-shadow: 2px 3px 2px #00000055;
+      border-radius: 5px;
+    }
+    .label {
+      padding-bottom: 0.5em;
+      font-size: 120%;
+    }
+    button {
+      color: indigo;
+      border: 0px;
+      border-radius: 5px;
+    }
+    .divider {
+      height: 1px;
+      background: #ddd;
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+  </style>
 </body>
 </html>

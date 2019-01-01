@@ -39,17 +39,19 @@ def moulton(f, xk, yk, x, stepnum, s = 4, iterations = 50):
 
 def get_formula(s, type="ab"):
   builder = ab._builder
+  next_s = s
   if(type == "am"):
     builder = am._builder
+    next_s = s-1
   fi_coef = builder(s)[1] 
   dy = 0
-  ys = sym.Symbol('y_' + str(s))
+  ys = sym.Symbol(('y_' + str(next_s-1)), commutative=False)
   for i in range(0, s):
-    dy = dy + sym.Symbol('f_' + str(i))*sym.nsimplify(fi_coef[i], tolerance=10e-6)
+    dy = dy + sym.Symbol('f_' + str(i), commutative=False)*sym.nsimplify(fi_coef[i], tolerance=10e-6)
   h = sym.Symbol('h')
-  eq = h*dy + ys
+  eq = ys+h*dy 
   print("Terminal printing: ")
   sym.printing.pprint(eq)
   print("Latex printing (copy and paste this into adams.html): ")
-  sym.print_latex(eq)
+  print("y_", next_s, "=", sym.latex(ys), "+", sym.latex(h*dy))
   
