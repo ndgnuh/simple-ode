@@ -15,8 +15,10 @@ def _builder(s):
   p = np.flip(np.array(a).dot(pc))
   print("p", p)
   def adams(f, xks, yks, h):
+    yk = yks[-1]
     xks = np.array(xks[-s:])
     yks = np.array(yks[-s:])
-    return yks[-1] + h*p.dot(f(xks, yks))
+    print(yks)
+    return yk + h*p.dot(np.array(f(xks, yks)))
   return [adams, p] 
 
