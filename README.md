@@ -2,21 +2,17 @@
 Các gói giải phương trình IVP và BVP (chủ yếu là IVP)
 
 ## Những gói chính
-- Các phương pháp RK:
-- Euler (hiện, ẩn)
-- Hình thang
-- RK3, RK4 (hiện)
-- Các phương pháp Adams - Bashforth (với s bất kì)
+- Các phương pháp 1 bước hiện/ẩn (dùng điểm bất động ánh xạ co)
+- Các phương pháp Adams(với s bất kì)
 
 ## Thư viện yêu cầu:
 - Numpy (bản bất kì)
 - Matplotlib (chỉ dùng cho việc vẽ đồ thị, nếu chỉ tính toán thì không cần)
+- Sympy (Dùng cho việc im ra công thức của Adams và dùng trong pp giải tích)
 
 ## Cách sử dụng:
 Xem hướng dẫn chi tiết trong [wiki](https://github.com/ndgnuh99/simple-ode/wiki)
-### Chạy bằng menu (chưa khả dụng)
-- Khai báo đầu vào trong hàm `inputs.py`. Bắt buộc phải có hàm `f`, điểm ban đầu `x0`, giá trị ban đầu `y0`. Sau đó chạy chương trình.
-### Chạy chay bằng file `main.py`
+
 - Khai báo đầu vào, import các module tương ứng với các phương pháp trong thư mục `ode`. Muốn biết trong mỗi module này có những gói nhỏ nào thì mở file ra xem (xem mấy cái `def` ấy).
 ```python
 from ode import euler, rk, ...vân vân
@@ -34,6 +30,7 @@ f = lambda x,y: 1 - y
 [x,y] = implicit(f, x0, y0, x, stepnum, <Module pp ẩn>, [module pp hiện], [số lần hiệu chỉnh])
 ```
 **Lưu ý**: Các module ở trên chỉ thực hiện tính toán chứ KHÔNG in kết quả. 
+
 ### In ra kết quả
 
 - Import module `rprint` từ trong thư mục `misc`
@@ -47,4 +44,4 @@ rprint.result(x, y)
 ```
 
 ## Báo lỗi
-Nếu tìm thấy lỗi thì tốt nhất báo trong mục issue của github, quăng lên messenger hay nói mồm thì vài ngày nó trôi mất. Với lại nếu là lỗi syntax khi khai báo do chưa biết dùng `python` thì đưa lên đây mọi người có thể đọc lại và học luôn.
+Nếu tìm thấy lỗi thì tốt nhất báo trong mục issue của github, quăng lên messenger hay nói mồm thì vài ngày nó trôi mất. Với lại nếu là lỗi syntax khi khai báo do chưa biết dùng `python` thì đưa lên đây để nhận hỗ trợ và mọi người có thể học luôn.
