@@ -17,7 +17,6 @@ def _builder(s):
     yk = yks[-1]
     xks = np.array(xks[-s:])
     yks = np.array(yks[-s:])
-    print(yks)
     return yk + h*p.dot(np.array(f(xks, yks)))
   return [adams, p] 
 
