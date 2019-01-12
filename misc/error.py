@@ -19,7 +19,6 @@ def error_eval(xs, ys):
   for i in range(0, n):
     d.append(dict(zip(xs[i], ys[i])))
     x_set = x_set.intersection(set(xs[i]))
-  print(d[0])
   for x in x_set:
     err = 0  #temporary error of each d1 dict
     for i in range(0, n):

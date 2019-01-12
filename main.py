@@ -1,6 +1,6 @@
 import numpy as np 
 from misc import rprint
-from ode import schemes, rk, euler, trapezoidal
+from ode import schemes, rk, euler, trapezoidal, adams
 from inputs import *
 from misc.error import error_eval
 

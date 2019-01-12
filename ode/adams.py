@@ -19,6 +19,7 @@ def bashforth(f, xk, yk, x, stepnum, s = 4):
 
 def moulton(f, xk, yk, x, stepnum, s = 4, iterations = 50):
   h = (x-xk)/stepnum
+  yk = np.array(yk)
   xks = [xk]
   yks = [yk]
   for i in range(0, s):
@@ -38,6 +39,7 @@ def moulton(f, xk, yk, x, stepnum, s = 4, iterations = 50):
   return [np.asarray(xks), np.asarray(yks)]
 
 def get_formula(s, type="ab"):
+  """Lấy ra công thức hàm"""
   builder = ab._builder
   next_s = s
   if(type == "am"):
