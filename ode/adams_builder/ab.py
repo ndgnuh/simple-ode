@@ -13,7 +13,6 @@ def _builder(s):
   a = _gen_ai(s)
   pc = helper._pascal_triangle(s)
   p = np.flip(np.array(a).dot(pc))
-  print("p", p)
   def adams(f, xks, yks, h):
     yk = yks[-1]
     xks = np.array(xks[-s:])
