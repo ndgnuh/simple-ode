@@ -1,4 +1,4 @@
-from numpy import average
+from numpy import average, array
 
 def error_eval(xs, ys):
   """evaluate error 
@@ -19,11 +19,11 @@ def error_eval(xs, ys):
   for i in range(0, n):
     d.append(dict(zip(xs[i], ys[i])))
     x_set = x_set.intersection(set(xs[i]))
-
+  print(d[0])
   for x in x_set:
-    err = []  #temporary error of each d1 dict
+    err = 0  #temporary error of each d1 dict
     for i in range(0, n):
       for j in range(i+1, n):
-        err.append(d[i][x] - d[j][x])
-    avg_err.append(average(err))
+        err += (array(d[i][x]) - array(d[j][x]))
+    avg_err.append(err/n)
   return [list(x_set), avg_err]
