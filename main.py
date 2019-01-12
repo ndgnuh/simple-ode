@@ -1,5 +1,5 @@
 import numpy as np 
-from misc import rprint, error_eval
+from misc import rprint
 from ode import schemes, rk, euler, trapezoidal
 from inputs import *
 # from "tên thư mục" import "tên file"
@@ -28,4 +28,3 @@ x0 = 0; x = 2.5; stepnum = 5;
 rprint.result(xk, yk)
 
 # y = lambda x: np.exp(-x/2)/3*(5*np.sqrt(3)*np.sin(x*np.sqrt(3)/2)+3*np.cos(np.sqrt(3)*x/2))
-
