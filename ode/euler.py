@@ -9,3 +9,6 @@ def im_euler(f, xk, yk, h, exf, iters):
   for j in range(0, iters):
     ykj = np.asarray(yk) + h*np.asarray(f(xknext, ykj))
   return ykj
+
+def im_euler_sub(f, xk, yk, h):
+  return lambda y: y - h*f(xk+h, y) - yk

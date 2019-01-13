@@ -8,6 +8,8 @@ def trapezoidal(f, xk, yk, h, exf, iters):
     ykj = np.asarray(yk) + h/2*(np.asarray(f(xknext, ykj))+np.asarray(f(xk, yk)))
   return ykj
 
+def trapezoidal_sub(f, xk, yk, h):
+  return lambda y: y - h/2*(f(xk,yk)+f(xk+h, y)) -yk
 # trapezoidal = lambda f, xk, xk1, yk, yk1, h: np.asarray(yk) + h/2*(np.asarray(f(xk1, yk1))+np.asarray(f(xk, yk)))
 """
 

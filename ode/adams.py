@@ -1,6 +1,7 @@
 from ode.adams_builder import am, ab
 import numpy as np
 import sympy as sym
+from scipy.optimize import newton
 
 def bashforth(f, xk, yk, x, stepnum, s = 4):
   h = (x-xk)/stepnum
@@ -57,3 +58,21 @@ def get_formula(s, type="ab"):
   print("Latex printing (copy and paste this into adams.html): ")
   print("y_", next_s, "=", sym.latex(ys), "+", sym.latex(h*dy))
   
+def moulton_newton(f, xk, yk, x, stepnum, s):
+  h = (x-xk)/stepnum
+  yk = np.array(yk)
+  xks = [xk]
+  yks = [yk]
+  for i in range(0, s):
+    amf = am._builder(i+1)[0]
+    xk = xk + h; xks.append(xk)
+    print(np.concatenate(yks, [1]))
+    amg = lambda y: y - h*amf(f, xks, np.concatenate(yks, y), h)
+    yk = newton(amg, yk)
+    yks.append(yk)
+  for i in range(s, stepnum):
+    xk = xk + h; xks.append(xk)
+    amg = lambda y: y - h*amf(f, xks, np.concatenate(yks, y), h)
+    yk = newton(amg, yk)
+    yks.append(yk)
+  return [np.asarray(xks), np.asarray(yks)]
