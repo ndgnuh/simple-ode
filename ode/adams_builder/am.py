@@ -22,5 +22,5 @@ def _builder(s):
     for i in range(0, len(p)):
       dy += p[i]*np.asarray(f(xks[i], yks[i]))
     # return yk + h*p.dot(f(xks, yks))
-    return yk + dy*h
+    return dy
   return [adams, p]

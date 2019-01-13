@@ -30,13 +30,13 @@ def moulton(f, xk, yk, x, stepnum, s = 4, iterations = 50):
     ykj = abf(f, xks, yks, h)
     yks.append(ykj)
     for j in range(0, iterations):
-      yks[-1] = amf(f, xks, yks, h)
+      yks[-1] = yks[-2] + h*amf(f, xks, yks, h)
   for i in range(s, stepnum):
     xk = xk + h; xks.append(xk)
     ykj = abf(f, xks, yks, h)
     yks.append(ykj)
     for j in range(0, iterations):
-      yks[-1] = amf(f, xks, yks, h)
+      yks[-1] = yks[-2] + h*amf(f, xks, yks, h)
   return [np.asarray(xks), np.asarray(yks)]
 
 def get_formula(s, type="ab"):
@@ -65,14 +65,14 @@ def moulton_newton(f, xk, yk, x, stepnum, s):
   yks = [yk]
   for i in range(0, s):
     amf = am._builder(i+1)[0]
+    print(am._builder(i+1)[1])
     xk = xk + h; xks.append(xk)
-    print(np.concatenate(yks, [1]))
-    amg = lambda y: y - h*amf(f, xks, np.concatenate(yks, y), h)
-    yk = newton(amg, yk)
+    amg = lambda y: y - yk - h*amf(f, xks, np.append(yks, y), h)
+    yk = newton(amg, yk, maxiter=200)
     yks.append(yk)
   for i in range(s, stepnum):
-    xk = xk + h; xks.append(xk)
-    amg = lambda y: y - h*amf(f, xks, np.concatenate(yks, y), h)
-    yk = newton(amg, yk)
+    xk = xk + h; xks.append(xk) 
+    amg = lambda y: y - yk - h*amf(f, xks, np.append(yks, y), h)
+    yk = newton(amg, yk, maxiter=200)
     yks.append(yk)
-  return [np.asarray(xks), np.asarray(yks)]
+  return [np.asarray(xks), np.asarray(yks)] 
