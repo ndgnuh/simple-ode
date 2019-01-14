@@ -10,6 +10,7 @@ Các gói giải phương trình IVP và BVP (chủ yếu là IVP)
 - Matplotlib (chỉ dùng cho việc vẽ đồ thị, nếu chỉ tính toán thì không cần)
 - Sympy (Dùng cho việc im ra công thức của Adams và dùng trong pp giải tích)
 - Scipy (Tạo tam giác pascal dùng cho công thức adams)
+
 Cài thư viện bằng cách chạy cái này trong cmd:
 ```
 pip install --user  tên-thư-viện
